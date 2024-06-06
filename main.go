@@ -19,10 +19,14 @@ type WebhookPayload struct {
 func handler(w http.ResponseWriter, r *http.Request) {
 	var payload WebhookPayload
 	err := json.NewDecoder(r.Body).Decode(&payload)
-	if err != nil {
-		http.Error(w, "Bad Request", http.StatusBadRequest)
-		return
-	}
+
+	log.Println(err)
+	log.Println("Push was made")
+
+	// if err != nil {
+	// 	http.Error(w, "Bad Request", http.StatusBadRequest)
+	// 	return
+	// }
 
 	if payload.Ref == "refs/heads/main" || payload.Ref == "ref/heads/main/dockerized" || payload.Ref == "refs/heads/release" {
 		go pullAndDeploy(payload.Repository.CloneURL)
