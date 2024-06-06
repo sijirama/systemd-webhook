@@ -31,6 +31,11 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
+func checkhealth(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("OK"))
+}
+
 func pullAndDeploy(_ string) {
 	cmd := exec.Command("/bin/sh", "-c", "cd ~/repo/boymezobo && ./deploy.sh") //i used this as a daemon for redeploying my docker containers on a remote server
 	err := cmd.Run()
@@ -43,6 +48,7 @@ func pullAndDeploy(_ string) {
 
 func main() {
 	http.HandleFunc("/webhook", handler)
+	http.HandleFunc("/checkhealth", checkhealth)
 
 	port := ":8080"
 
