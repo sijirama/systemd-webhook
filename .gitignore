@@ -10,10 +10,3 @@ gogithook
 # Output of the go coverage tool
 *.out
 
-# Go workspace file
-go.work
-
-# Ignore executables in the project root and subdirectories
-!*.go
-
-
