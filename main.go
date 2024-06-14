@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -9,13 +8,6 @@ import (
 )
 
 // WebhookPayload represents the payload structure received from the webhook
-type WebhookPayload struct {
-	Ref        string `json:"ref"`
-	Repository struct {
-		CloneURL string `json:"clone_url"`
-	} `json:"repository"`
-}
-
 func handler(w http.ResponseWriter, r *http.Request) {
 	log.Println("Received a new webhook request")
 
@@ -30,7 +22,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Received webhook payload: %+v", payload)
 
-	if payload.Ref == "refs/heads/main" || payload.Ref == "ref/heads/main/dockerized" || payload.Ref == "refs/heads/release" {
+	if payload.Ref == "refs/heads/release" {
 		log.Printf("Triggering deployment for ref: %s", payload.Ref)
 		go pullAndDeploy(payload.Repository.CloneURL)
 	} else {
