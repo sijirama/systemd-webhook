@@ -1,5 +1,7 @@
 package main
 
+// i'm pretty sure this isn't the response schema that github returns.
+
 type WebhookPayload struct {
 	Ref        string `json:"ref"`
 	Before     string `json:"before"`
